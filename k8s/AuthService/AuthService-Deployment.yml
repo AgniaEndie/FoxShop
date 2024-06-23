@@ -18,3 +18,19 @@ spec:
           ports:
             - containerPort: 8080
               protocol: TCP
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  key: db-user
+                  name: auth-secrets
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  key: db-name
+                  name: auth-secrets
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: db-password
+                  name: auth-secrets
