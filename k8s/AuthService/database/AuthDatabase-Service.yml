@@ -6,7 +6,7 @@ spec:
   selector:
     app: auth-database
   ports:
-    - port: 5632
-      targetPort: 5632
-      nodePort: 35632
+    - port: 5432
+      targetPort: 5432
+      nodePort: 30432
   type: NodePort
