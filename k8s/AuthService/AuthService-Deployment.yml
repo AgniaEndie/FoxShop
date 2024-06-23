@@ -13,11 +13,10 @@ spec:
         app: auth
     spec:
       containers:
-        - name: auth-deployment
-          image: endienasg/foxshop-auth
+        - name: auth-pod
+          image: endienasg/foxshop-auth:main
           ports:
             - containerPort: 8080
-              protocol: TCP
           env:
             - name: DB_USER
               valueFrom:
