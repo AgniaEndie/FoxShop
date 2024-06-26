@@ -53,8 +53,13 @@ spec:
                 secretKeyRef:
                   key: access-expired-minutes
                   name: auth-secrets
-            - name: SR_REFRESH_DAYS
+            - name: SR_REFRESH_EXP_DAYS
               valueFrom:
                 secretKeyRef:
                   key: refresh-expired-days
+                  name: auth-secrets
+            - name: SR_ZONE_ID
+              valueFrom:
+                secretKeyRef:
+                  key: sr-zone-id
                   name: auth-secrets
