@@ -33,8 +33,28 @@ spec:
                 secretKeyRef:
                   key: db-password
                   name: auth-secrets
-            - name: SR_JWT
+            - name: SR_JWT_PRIVATE
               valueFrom:
                 secretKeyRef:
-                  key: sr-jwt
+                  key: sr-jwt-private
+                  name: auth-secret-api-keys
+            - name: SR_JWT_PUBLIC
+              valueFrom:
+                secretKeyRef:
+                  key: sr-jwt-public
+                  name: auth-secret-api-keys
+            - name: SR_ACCESS_EXP_HOURS
+              valueFrom:
+                secretKeyRef:
+                  key: access-expired-hours
+                  name: auth-secrets
+            - name: SR_ACCESS_EXP_MINS
+              valueFrom:
+                secretKeyRef:
+                  key: access-expired-minutes
+                  name: auth-secrets
+            - name: SR_REFRESH_DAYS
+              valueFrom:
+                secretKeyRef:
+                  key: refresh-expired-days
                   name: auth-secrets
