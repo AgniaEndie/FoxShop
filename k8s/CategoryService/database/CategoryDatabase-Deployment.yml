@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: category-database-deployment
+spec:
+  selector:
+    matchLabels:
+      app: category-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: category-db
+    spec:
+      containers:
+        - name: category-database-deployment
+          image: postgres:16
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: category-database-secrets
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: category-database-secrets
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  key: database
+                  name: category-database-secrets
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: category-volume
+      volumes:
+        - name: category-volume
+          persistentVolumeClaim:
+            claimName: category-persistent-volume-claim
