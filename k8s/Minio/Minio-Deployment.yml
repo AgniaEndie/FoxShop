@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio-server
+  labels:
+    app: minio-server
+
+spec:
+  selector:
+    matchLabels:
+      app: minio-server
+  template:
+    metadata:
+      labels:
+        app: minio-server
+    spec:
+      containers:
+        - name: minio-server
+          image: quay.io/minio/minio:latest
+          command:
+            - /bin/bash
+            - -c
+          args:
+            - minio server /data --console-address :9001
+          volumeMounts:
+            - mountPath: /data
+              name: localvolume
+      volumes:
+        - name: localvolume
+          hostPath:
+            path: /mnt/disk1/data
+            type: DirectoryOrCreate
