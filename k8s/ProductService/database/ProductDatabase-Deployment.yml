@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-database-deployment
+spec:
+  selector:
+    matchLabels:
+      app: product-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: product-db
+    spec:
+      containers:
+        - name: product-database-deployment
+          image: postgres:16
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: product-database-secrets
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: product-database-secrets
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  key: database
+                  name: product-database-secrets
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: product-volume
+      volumes:
+        - name: product-volume
+          persistentVolumeClaim:
+            claimName: product-persistent-volume-claim

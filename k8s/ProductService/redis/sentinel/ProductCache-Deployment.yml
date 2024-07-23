@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-redis-sentinel
+spec:
+  selector:
+    matchLabels:
+      app: redis
+      role: sentinel
+      tier: backend
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: redis
+        role: sentinel
+        tier: backend
+    spec:
+      containers:
+        - name: product-cache-sentinel
+          image: bitnami/redis-sentinel
+          env:
+            - name: REDIS_MASTER_HOST
+              value: product-redis-master
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - containerPort: 26379
+
