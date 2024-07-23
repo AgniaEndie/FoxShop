@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: category-deployment
+  name: product-deployment
 spec:
   selector:
     matchLabels:
-      app: category
+      app: product
   replicas: 1
   template:
     metadata:
       labels:
-        app: category
+        app: product
     spec:
       containers:
-        - name: category-pod
-          image: endienasg/foxshop-category:main
+        - name: product-pod
+          image: endienasg/foxshop-product:main
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
@@ -22,24 +23,24 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: username
-                  name: category-database-secrets
+                  name: product-database-secrets
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
                   key: database
-                  name: category-database-secrets
+                  name: product-database-secrets
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
                   key: password
-                  name: category-database-secrets
+                  name: product-database-secrets
             - name: JWT_SC_P
               valueFrom:
                 secretKeyRef:
                   key: secret_public
-                  name: category-secrets
+                  name: product-secrets
             - name: JWT_EXP_ZONE
               valueFrom:
                 secretKeyRef:
                   key: exp_zone
-                  name: category-secrets
+                  name: product-secrets

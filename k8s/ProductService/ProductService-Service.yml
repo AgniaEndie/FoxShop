@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: category-service
+  name: product-service
 spec:
   selector:
-    app: category
+    app: product
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 30082
+      nodePort: 30083
   type: NodePort
